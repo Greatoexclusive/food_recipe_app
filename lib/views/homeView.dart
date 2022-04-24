@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:food_app_demo/view_model/home_view_model.dart';
+import 'package:food_app_demo/views/components/image_card_skeleton.dart';
 import 'package:food_app_demo/widgets/food_view.dart';
 import 'package:food_app_demo/widgets/image_card.dart';
 import 'package:food_app_demo/views/components/search_bar.dart';
@@ -118,28 +119,33 @@ class _HomeViewState extends ConsumerState<HomeView> {
                     height: 30,
                   ),
                   ...List.generate(
-                    model.food.length,
+                    model.food.isEmpty ? 5 : model.food.length,
                     (index) => GestureDetector(
                       onTap: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => FoodView(
-                                    ingredientsList:
-                                        model.food[index].ingredients,
-                                    image: model.food[index].image,
-                                    title: model.food[index].label,
-                                    length: model.food[index].ingredients.length
-                                        .toString(),
-                                  )),
+                              builder: (context) => model.food.isEmpty
+                                  ? const Scaffold()
+                                  : FoodView(
+                                      ingredientsList:
+                                          model.food[index].ingredients,
+                                      image: model.food[index].image,
+                                      title: model.food[index].label,
+                                      length: model
+                                          .food[index].ingredients.length
+                                          .toString(),
+                                    )),
                         );
                       },
-                      child: ImageCard(
-                          title: model.food[index].label,
-                          ingrideints:
-                              model.food[index].ingredients.length.toString(),
-                          image: model.food[index].image,
-                          time: model.food[index].totalTime),
+                      child: model.food.isEmpty
+                          ? const ImageCardSkeleton()
+                          : ImageCard(
+                              title: model.food[index].label,
+                              ingrideints: model.food[index].ingredients.length
+                                  .toString(),
+                              image: model.food[index].image,
+                              time: model.food[index].totalTime),
                     ),
                   )
                 ],
