@@ -27,9 +27,18 @@ class _HomeViewState extends ConsumerState<HomeView> {
   @override
   void initState() {
     final model = ref.read(_homeViewProvider);
-    Future.delayed(const Duration(seconds: 2),
-        () => model.getFood(model.myController.text, 0, 10));
+    Future.delayed(const Duration(seconds: 2), () => model.getItem());
 
+    scrollController.addListener(() {
+      if (scrollController.position.pixels >=
+          scrollController.position.maxScrollExtent - 2000) {
+        // model.getFood(search, from, to);
+        if (!ref.read(_homeViewProvider).isBusy) {
+          model.getMore();
+          print("i want more");
+        }
+      }
+    });
     super.initState();
   }
 
@@ -41,6 +50,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
       child: Scaffold(
         body: SafeArea(
             child: ListView(
+          controller: scrollController,
           children: [
             Padding(
               padding: const EdgeInsets.all(20),
@@ -72,7 +82,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
                       onSubmitted: ((value) {
                         model.food = [];
                         selectedIndex = value == "" ? 0 : null;
-                        model.getFood(value, 0, 10);
+                        model.getItem();
                       }),
                       controller: model.myController,
                       style: const TextStyle(color: Colors.black),
@@ -101,7 +111,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
                         (index) => InkWell(
                           onTap: () {
                             model.food = [];
-                            model.getItem(item[index]);
+                            model.getItemForHelper(item[index]);
                             selectedIndex = index;
                             setState(() {});
                           },

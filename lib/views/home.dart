@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:food_app_demo/widgets/food_view.dart';
 import 'package:food_app_demo/views/homeView.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
@@ -8,7 +6,7 @@ class Home extends StatelessWidget {
   Home({Key? key}) : super(key: key);
 
   List<Widget> _buildScreens() {
-    return [
+    return const [
       HomeView(),
       Scaffold(),
       Scaffold(),
