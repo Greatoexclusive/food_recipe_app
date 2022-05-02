@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:food_app_demo/widgets/food_view.dart';
 
 class ImageCard extends StatelessWidget {
   const ImageCard({

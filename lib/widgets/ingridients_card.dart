@@ -40,7 +40,8 @@ class IngridientsCard extends StatelessWidget {
               width: 20,
             ),
             Expanded(
-              child: Text(title,
+              flex: 2,
+              child: Text(title.toUpperCase(),
                   style: const TextStyle(
                     // overflow: TextOverflow.ellipsis,
                     color: Colors.black,
@@ -49,17 +50,15 @@ class IngridientsCard extends StatelessWidget {
                   )),
             ),
             const Spacer(),
-            Align(
-              alignment: Alignment.centerRight,
-              child: Expanded(
-                child: Text(ingrideints,
-                    style: TextStyle(
-                      overflow: TextOverflow.ellipsis,
-                      color: Colors.grey.shade400,
-                      fontWeight: FontWeight.w700,
-                      fontSize: 15,
-                    )),
-              ),
+            Expanded(
+              // flex: 2,
+              child: Text(ingrideints,
+                  style: TextStyle(
+                    // overflow: TextOverflow.ellipsis,
+                    color: Colors.grey.shade400,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 15,
+                  )),
             ),
           ],
         ));
